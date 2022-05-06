@@ -1,0 +1,22 @@
+[
+    {
+      "title": "El Alquimista",
+      "precio": 90,
+      "thumbnail": "https://via.PabloCohelo.com/250",
+      "id": 1
+    },
+    {
+      "title": "El Peregrino",
+      "precio": 190,
+      "thumbnail": "https://via.PabloCohelo.com/250",
+      "id": 2
+    },
+    {
+      "title": "Harry Potter",
+      "precio": 120,
+      "thumbnail": "https://via.HarryPotter.com/100",
+      "id": 3
+    }
+    
+  ]
+  
