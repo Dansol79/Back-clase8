@@ -6,6 +6,7 @@ const router = require ('./routers/routesProductos');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.static("./vistas"));
+app.use(multer({ dest: './public/imagenes' }).single('imagen'));
 
 
 //Puerto

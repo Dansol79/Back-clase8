@@ -10,13 +10,15 @@
     <h1>Desafio 4</h1>
     <h2>Productos</h2>
     <div>
-        <form action="/api/productos" method="post">
+        <form action="/api/productos" enctype="multipart/form-data" method="post">
             NOMBRE: <input type="text" name="nombre" id="nombre"> <br><br>
             PRECIO: <input type="text" name="precio" id="precio"><br><br>
             THUMBNAIL: <input type="text" name="thumbnail" id="thumbnail"><br><br>
+            CARGAR IMAGEN: <input type="file" name="imagen"  ><br><br>
             
             <button
                     type="submit"
+                    value="Enviar"
                     style="background-color: rgb(193, 143, 233); color: black; border:none;"
             >Agregar Producto</button>
 

@@ -2,19 +2,35 @@ const express = require('express');
 const router = express.Router();
 const Contenedor = require('../contenedor/contenedor');
 const fs = require('fs');
-const contenedor = require('../contenedor/contenedor');
 
 
 const Product = new Contenedor(__dirname + '/../data/productos.json');
 Product.leer();
 
+const midleError = function (err, req, res, next) {
+    if (err) {
+        return res.status(500).json({
+            error: 'Error en el servidor'
+        });
+    }
+    next();
+}
 
+const midlePrecio = function (req, res, next) {
+
+    if (req.body.title === '' || req.body.price === '' || req.body.thumbnail === '') {
+        return res.status(500).json({
+            error: 'Todos los campos son obligatorios'
+        });
+    }
+    next();
+}
 
 
 module.exports = function () {
 
 
-    router.get('/', async (req, res) => {
+    router.get('/', midleError, async (req, res) => {
         const arrProductos = await Product.getAll();
         res.json(arrProductos);
     });
@@ -22,35 +38,31 @@ module.exports = function () {
 
     router.get('/:id', async (req, res) => {
         let id = Number(req.params.id);
-        const producto = await Product.getById(id)  
-
-        if(producto !== null){
+        const producto = await Product.getById(id)
         res.json(producto);
-        }else{
-            res.status(404).json({ message: 'No existe el producto'});      
-        };
-                
     });
 
-    router.post('/', async (req, res) => {
+    router.post('/', midlePrecio, async (req, res) => {
         let producto = req.body;
         await Product.save(producto);
         res.json(producto);
-          
+
     });
 
     router.put('/:id', async (req, res) => {
         let id = Number(req.params.id);
         let producto = req.body;
         await Product.update(id, producto);
-       res.json(producto);
+        res.json(producto);
 
     });
 
     router.delete('/:id', async (req, res) => {
         let id = Number(req.params.id);
         await Product.deleteById(id);
-        res.json({ message: 'Producto eliminado'});
+        res.json({
+            message: 'Producto eliminado'
+        });
 
     });
 
